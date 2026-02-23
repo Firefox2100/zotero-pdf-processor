@@ -1,6 +1,5 @@
 import os
 import logging
-import importlib.resources
 from enum import Enum
 from typing import Optional, Literal
 from pydantic import Field
@@ -67,6 +66,10 @@ class Settings(BaseSettings):
     webhook_url: str = Field(
         ...,
         description='URL for sending webhook notifications about processed attachments'
+    )
+    webhook_send_tei: bool = Field(
+        False,
+        description='Whether to include TEI XML content in webhook notifications'
     )
 
     database_url: str = Field(

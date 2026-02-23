@@ -20,6 +20,7 @@ def index_zotero_pdfs(zotero: ZoteroDriver,
     (data_path / 'xml').mkdir(parents=True, exist_ok=True)
 
     for event in events:
+        tei_xml = None
         if event.event_type == EventType.ATTACHMENT_FOUND:
             LOGGER.info(
                 'Found attachment: %s (parent item: %s)',
@@ -94,10 +95,13 @@ def index_zotero_pdfs(zotero: ZoteroDriver,
                 event.parent_item_key
             )
 
-        webhook.send_event(event)
+        webhook.send_event(
+            event=event,
+            tei_xml=tei_xml,
+        )
 
 
-def zotero_pdf_processor():
+def zotero_processor():
     db_engine = create_engine(CONFIG.database_url, future=True)
     init_db(db_engine)
 
@@ -140,4 +144,4 @@ def zotero_pdf_processor():
 
 
 if __name__ == '__main__':
-    zotero_pdf_processor()
+    zotero_processor()

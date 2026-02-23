@@ -36,5 +36,8 @@ Homepage = "https://github.com/Firefox2100/zotero-pdf-processor"
 Repository = "https://github.com/Firefox2100/zotero-pdf-processor.git"
 Issues = "https://github.com/Firefox2100/zotero-pdf-processor/issues"
 
+[project.scripts]
+zotero-pdf-processor = "zotero_pdf_processor.app:zotero_processor"
+
 [tool.setuptools.dynamic]
 version = {attr = "zotero_pdf_processor.__version__"}

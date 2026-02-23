@@ -1,6 +1,6 @@
 import httpx
 
-from zotero_pdf_processor.consts import LOGGER
+from zotero_pdf_processor.consts import CONFIG, LOGGER
 from zotero_pdf_processor.zotero_driver import ZoteroSyncEvent
 
 
@@ -11,12 +11,18 @@ class WebhookDriver:
         self.webhook_url = webhook_url
         self.client = httpx.Client(timeout=10.0)
 
-    def send_event(self, event: ZoteroSyncEvent):
+    def send_event(self,
+                   event: ZoteroSyncEvent,
+                   tei_xml: str | None = None,
+                   ):
         payload = {
             'event_type': event.event_type.value,
             'attachment_key': event.attachment_key,
             'parent_item_key': event.parent_item_key,
         }
+
+        if CONFIG.webhook_send_tei and tei_xml is not None:
+            payload['tei_xml'] = tei_xml
 
         try:
             response = self.client.post(self.webhook_url, json=payload)
