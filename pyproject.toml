@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zotero-pdf-processor"
+authors = [
+  { name="Firefox2100", email="wangyunze16@gmail.com" },
+]
+description = "Zotero PDF Processor: A tool for processing PDF attachments in Zotero, for usage with other systems."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+]
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+dependencies = [
+    "httpx~=0.28.1",
+    "pydantic~=2.12.5",
+    "pydantic-settings~=2.12.0",
+    "pyzotero~=1.10.0",
+    "sqlalchemy~=2.0.46",
+]
+dynamic = [
+    "version"
+]
+
+[project.urls]
+Homepage = "https://github.com/Firefox2100/zotero-pdf-processor"
+Repository = "https://github.com/Firefox2100/zotero-pdf-processor.git"
+Issues = "https://github.com/Firefox2100/zotero-pdf-processor/issues"
+
+[tool.setuptools.dynamic]
+version = {attr = "zotero_pdf_processor.__version__"}
